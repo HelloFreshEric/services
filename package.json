@@ -1,0 +1,15 @@
+{
+    "name": "@hellofresh/services",
+    "version": "1.0.0",
+    "license": "MIT",
+    "devDependencies": {
+        "@hellofresh/types": "git+ssh://git@github.com/HelloFreshEric/types.git",
+        "typescript": "^4.9.4"
+    },
+    "exports": {
+        "./auth": "file:./auth/index.ts"
+    },
+    "dependencies": {
+        "react-query": "^3.39.2"
+    }
+}
