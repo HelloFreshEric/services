@@ -8,7 +8,7 @@ export type PostLogoutParams = {
 export const postLogout: DataAccess<DataAccessType.POST, UserAuth, PostLogoutParams> = async (
     params,
     queryKey,
-    fetch = localFetch
+    fetch
 ) => {
     const response = await fetch(
         '/logout',

@@ -13,7 +13,7 @@ export type GetPasswordlessLoginFinishParams = {
 export const getPasswordlessLoginFinish: DataAccess<DataAccessType.GET, PasswordlessLoginFinish, GetPasswordlessLoginFinishParams> = async (
   params,
   queryKey,
-  fetch = localFetch
+  fetch
 ) => {
   const { code, email, country, channel, redirect_url, public_id } = params;
 

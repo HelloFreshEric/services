@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { UserAuth, PasswordlessLoginFinish } from '@hellofresh/types/auth';
+import { PasswordlessLoginFinish } from '@hellofresh/types/auth';
 import { getPasswordlessLoginFinish, GetPasswordlessLoginFinishParams } from '../requests/getPasswordlessLoginFinish'
 import { UseMutation } from '../../schema';
 import RequestIds from './RequestIds';

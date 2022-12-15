@@ -9,7 +9,7 @@ export type PostLoginParams = {
 export const postLogin: DataAccess<DataAccessType.POST, UserAuth, PostLoginParams> = async (
   params,
   queryKey,
-  fetch = localFetch
+  fetch
 ) => {
   const response = await fetch(
     '/login',
