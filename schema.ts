@@ -4,7 +4,6 @@ import type {
   UseQueryOptions,
   UseQueryResult,
 } from 'react-query';
-import RequestIds from './RequestIds';
 
 type AutorizationParams = {
   token_type: string;
@@ -16,6 +15,7 @@ type LocalizeParams = {
   locale: Locales;
 }
 
+//#region Request method types
 export enum DataAccessType {
   GET = 'GET',
   POST = 'POST',
@@ -30,15 +30,24 @@ export type DataAccess<
   TParams = {},
   TLocalizeParams = LocalizeParams
 > = (
-  params: TParams & TLocalizeParams & AutorizationParams,
+  params: TParams & TLocalizeParams & { auth?: AutorizationParams },
   fetch?: (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>
 ) => Promise<TResult>;
+//#endregion
 
+//#region Hook return types
 export type UseMutation<TResult, TParams = {}, TError = Error> = (
+  localizeParams: LocalizeParams,
+  fetch: (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>,
+  auth?: AutorizationParams,
   options?: UseMutationOptions<TResult, TError, TParams>
 ) => UseMutationResult<TResult, Error, TParams, unknown>;
 
 export type UseQuery<TResult, TParams = {}> = (
   params: TParams,
+  localizeParams: LocalizeParams,
+  fetch: (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>,
+  auth?: AutorizationParams,
   options?: UseQueryOptions<TResult>
 ) => UseQueryResult<TResult>;
+//#endregion

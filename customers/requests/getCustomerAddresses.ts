@@ -6,7 +6,7 @@ export type GetCustomerAddressesParams = {
 };
 
 export const getCustomerAddresses: DataAccess<DataAccessType.GET, CustomerAddresses, GetCustomerAddressesParams> = async (
-    { id = 'me', token_type, access_token },
+    { id = 'me', auth = { token_type: '', access_token: '' } },
     fetch = () => Promise.resolve(null),
 ) => {
     const response = await fetch(
@@ -15,7 +15,7 @@ export const getCustomerAddresses: DataAccess<DataAccessType.GET, CustomerAddres
             method: DataAccessType.GET,
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `${token_type} ${access_token}`,
+                authorization: `${auth.token_type} ${auth.access_token}`,
             },
         }
     );

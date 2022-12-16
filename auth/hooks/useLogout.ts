@@ -3,13 +3,11 @@ import { UserAuth } from '@hellofresh/types/auth';
 import { postLogout, PostLogoutParams } from '../requests/postLogout';
 import { UseMutation } from '../../schema';
 
-export const useLogout: UseMutation<UserAuth, PostLogoutParams> = (options = {}) => {
+export const useLogout: UseMutation<UserAuth, PostLogoutParams> = (localizeParams, fetch, auth, options = {}) => {
     const queryClient = useQueryClient();
-    const localizeParams = useLocalizeParams();
-    const { fetch } = useFetch();
 
     return useMutation((params) => postLogout(
-        { ...params, ...localizeParams, },
+        { ...params, ...localizeParams, ...(auth ? auth : {}) },
         fetch
     ), {
         onSuccess: () => { queryClient.clear(); },

@@ -4,13 +4,11 @@ import { getCustomerAddresses, GetCustomerAddressesParams } from '../requests/ge
 import { UseQuery } from '../../schema';
 import RequestIds from '../../RequestIds';
 
-export const useCustomerAddresses: UseQuery<CustomerAddresses, GetCustomerAddressesParams> = (params = {}, options = {}) => {
-    const localizeParams = useLocalizeParams();
-    const { fetch } = useFetch();
-
+export const useCustomerAddresses: UseQuery<CustomerAddresses, GetCustomerAddressesParams> = (params, localizeParams, fetch, auth, options = {}) => {
     const localizedParams = {
         ...params,
         ...localizeParams,
+        ...(auth ? auth : {})
     };
 
     const queryKey = [RequestIds['customer.addresses'], localizedParams];
