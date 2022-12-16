@@ -7,11 +7,9 @@ import type {
 import RequestIds from './RequestIds';
 
 type AutorizationParams = {
-  token_type?: string;
-  access_token?: string;
+  token_type: string;
+  access_token: string;
 };
-
-type QueryKey<TParams> = (RequestIds | TParams)[];
 
 type LocalizeParams = {
   systemCountry: SystemCountry;
