@@ -10,12 +10,12 @@ type ServicesProviderProps = {
 
 export const ServicesContext = createContext<ServicesProviderProps>();
 
-export const ServicesProvider: React.FC<React.PropsWithChildren<ServicesProviderProps>> = ({ localizeParams, authorizationParams, children }) => {
+export const ServicesProvider: React.FC<React.PropsWithChildren<ServicesProviderProps>> = ({ fetch, localizeParams, authorizationParams, children }) => {
     const queryClient = new QueryClient()
 
     return (
         <QueryClientProvider client={queryClient}>
-            <ServicesContext.Provider value={{ localizeParams, authorizationParams }} >
+            <ServicesContext.Provider value={{ fetch, localizeParams, authorizationParams }} >
                 {children}
             </ServicesContext.Provider>
         </QueryClientProvider>
