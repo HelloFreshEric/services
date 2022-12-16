@@ -5,15 +5,17 @@ import type {
   UseQueryResult,
 } from 'react-query';
 
-type AutorizationParams = {
+export type AutorizationParams = {
   token_type: string;
   access_token: string;
 };
 
-type LocalizeParams = {
+export type LocalizeParams = {
   systemCountry: SystemCountry;
   locale: Locales;
 }
+
+export type FetchFunction = (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>;
 
 //#region Request method types
 export enum DataAccessType {
@@ -31,23 +33,17 @@ export type DataAccess<
   TLocalizeParams = LocalizeParams
 > = (
   params: TParams & TLocalizeParams & { auth?: AutorizationParams },
-  fetch?: (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>
+  fetch?: FetchFunction
 ) => Promise<TResult>;
 //#endregion
 
 //#region Hook return types
 export type UseMutation<TResult, TParams = {}, TError = Error> = (
-  localizeParams: LocalizeParams,
-  fetch: (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>,
-  auth?: AutorizationParams,
   options?: UseMutationOptions<TResult, TError, TParams>
 ) => UseMutationResult<TResult, Error, TParams, unknown>;
 
 export type UseQuery<TResult, TParams = {}> = (
   params: TParams,
-  localizeParams: LocalizeParams,
-  fetch: (path: string, options: { method: DataAccessType, headers?: object, body?: string }) => Promise<Response | null>,
-  auth?: AutorizationParams,
   options?: UseQueryOptions<TResult>
 ) => UseQueryResult<TResult>;
 //#endregion
