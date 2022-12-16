@@ -9,8 +9,10 @@ export const postLogout: DataAccess<DataAccessType.POST, UserAuth, PostLogoutPar
     params,
     fetch = () => Promise.resolve(null)
 ) => {
+    const queryString = new URLSearchParams({ locale: params.locale, country: params.systemCountry });
+
     const response = await fetch(
-        '/logout',
+        '/logout' + (queryString ? "?" + queryString : ''),
         {
             method: DataAccessType.POST,
             headers: { 'Content-Type': 'application/json' },

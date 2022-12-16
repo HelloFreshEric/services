@@ -6,11 +6,13 @@ export type GetCustomerAddressesParams = {
 };
 
 export const getCustomerAddresses: DataAccess<DataAccessType.GET, CustomerAddresses, GetCustomerAddressesParams> = async (
-    { id = 'me', auth = { token_type: '', access_token: '' } },
+    { id = 'me', locale, systemCountry, auth = { token_type: '', access_token: '' }, },
     fetch = () => Promise.resolve(null),
 ) => {
+    const queryString = new URLSearchParams({ locale: locale, country: systemCountry });
+
     const response = await fetch(
-        `/api/customers/${id}/addresses`,
+        `/api/customers/${id}/addresses` + (queryString ? "?" + queryString : ''),
         {
             method: DataAccessType.GET,
             headers: {

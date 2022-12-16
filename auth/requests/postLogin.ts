@@ -10,8 +10,10 @@ export const postLogin: DataAccess<DataAccessType.POST, UserAuth, PostLoginParam
   params,
   fetch = () => Promise.resolve(null),
 ) => {
+  const queryString = new URLSearchParams({ locale: params.locale, country: params.systemCountry });
+
   const response = await fetch(
-    '/login',
+    '/login' + (queryString ? "?" + queryString : ''),
     {
       headers: { 'Content-Type': 'application/json' },
       method: DataAccessType.POST,
