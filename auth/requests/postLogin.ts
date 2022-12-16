@@ -8,25 +8,19 @@ export type PostLoginParams = {
 
 export const postLogin: DataAccess<DataAccessType.POST, UserAuth, PostLoginParams> = async (
   params,
-  queryKey,
-  fetch
+  fetch = () => Promise.resolve(null),
 ) => {
   const response = await fetch(
     '/login',
-    queryKey,
     {
+      headers: { 'Content-Type': 'application/json' },
       method: DataAccessType.POST,
-      data: {
+      body: JSON.stringify({
         username: params.email,
         password: params.password,
-      },
-      query: {
-        country: params.systemCountry,
-      },
-      parentSpan: params.parentSpan,
+      }),
     },
-    { isAuthRequest: true, skipGetAuth: true }
   );
 
-  return response.json();
+  return response?.json();
 };

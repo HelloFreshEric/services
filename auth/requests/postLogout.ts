@@ -7,23 +7,17 @@ export type PostLogoutParams = {
 
 export const postLogout: DataAccess<DataAccessType.POST, UserAuth, PostLogoutParams> = async (
     params,
-    queryKey,
-    fetch
+    fetch = () => Promise.resolve(null)
 ) => {
     const response = await fetch(
         '/logout',
-        queryKey,
         {
             method: DataAccessType.POST,
-            data: {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
                 refresh_token: params.refresh_token,
-            },
-            query: {
-                country: params.systemCountry,
-                locale: params.locale,
-            },
-            parentSpan: params.parentSpan,
+            }),
         });
 
-    return response.json();
+    return response?.json();
 };
